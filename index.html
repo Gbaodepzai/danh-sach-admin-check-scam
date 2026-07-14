@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheckScam Uy Tín – Tra Cứu & Xác Minh</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06090f;
+  --bg2: #0d1117;
+  --bg3: #111827;
+  --card: #161d2b;
+  --card2: #1a2234;
+  --border: #1f2d47;
+  --border2: #243044;
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-glow: rgba(59,130,246,0.18);
+  --success: #10b981;
+  --success-bg: rgba(16,185,129,0.1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239,68,68,0.1);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245,158,11,0.1);
+  --text: #f1f5f9;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--bg2);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:999;background:rgba(6,9,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%;}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo-img{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+}
+.logo span{
+    font-size:34px;
+    font-weight:900;
+    background:linear-gradient(90deg,#fff,var(--primary));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    line-height:1;
+}
+
+.logo em{
+    -webkit-text-fill-color:#fff;
+    font-style:normal;
+    font-weight:600;
+    font-size:20px;
+    margin-left:6px;
+    opacity:0.8;
+    line-height:1;
+}.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{color:var(--text2);font-weight:600;font-size:13.5px;padding:7px 14px;border-radius:8px;transition:all .2s;display:flex;align-items:center;gap:6px;}
+.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.06);}
+.nav-links a.active{color:var(--primary);}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ======= HOME PAGE ======= */
+.hero{padding:70px 5% 50px;text-align:center;position:relative;}
+.hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(59,130,246,0.08) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);color:var(--primary);padding:5px 14px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:14px;}
+.hero h1 span{background:linear-gradient(90deg,var(--primary),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{color:var(--text2);font-size:16px;max-width:520px;margin:0 auto 36px;}
+
+/* SEARCH BOX */
+.search-container{max-width:680px;margin:0 auto;}
+.search-tabs{display:flex;gap:6px;margin-bottom:12px;justify-content:center;}
+.search-tab{padding:7px 18px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;border:1.5px solid var(--border2);background:var(--card);color:var(--text2);transition:all .2s;}
+.search-tab.active{background:var(--primary);border-color:var(--primary);color:#fff;}
+.search-box{background:var(--card);border:1.5px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;gap:12px;padding:6px 6px 6px 20px;transition:border-color .2s;}
+.search-box:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow);}
+.search-box i{color:var(--text3);font-size:17px;flex-shrink:0;}
+.search-box input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:inherit;font-size:15px;padding:10px 0;}
+.search-box input::placeholder{color:var(--text3);}
+.btn-search{background:linear-gradient(135deg,var(--primary),#6366f1);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity .2s;}
+.btn-search:hover{opacity:.9;}
+
+/* SEARCH RESULT */
+.search-result{max-width:680px;margin:16px auto 0;}
+.result-card{background:var(--card);border:1.5px solid var(--border2);border-radius:var(--radius);padding:24px;animation:fadeUp .3s ease;}
+.result-card.verified{border-color:var(--success);}
+.result-card.not-found{border-color:var(--danger);}
+.result-card.warning{border-color:var(--warning);}
+.result-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.result-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.result-icon.green{background:var(--success-bg);color:var(--success);}
+.result-icon.red{background:var(--danger-bg);color:var(--danger);}
+.result-icon.yellow{background:var(--warning-bg);color:var(--warning);}
+.result-title{font-size:18px;font-weight:800;}
+.result-sub{color:var(--text2);font-size:13px;margin-top:3px;}
+.result-admin-info{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,0.03);border-radius:10px;padding:14px;}
+.result-admin-info img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--success);}
+.result-admin-info .info-name{font-weight:700;font-size:15px;}
+.result-admin-info .info-service{color:var(--text2);font-size:13px;margin-top:3px;}
+.result-admin-info .info-badge{margin-top:6px;display:inline-flex;align-items:center;gap:5px;background:var(--success-bg);color:var(--success);padding:3px 10px;border-radius:50px;font-size:11px;font-weight:700;}
+.result-detail-btn{margin-top:14px;width:100%;background:var(--card2);border:1.5px solid var(--border2);color:#fff;border-radius:10px;padding:11px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.result-detail-btn:hover{border-color:var(--primary);color:var(--primary);}
+
+/* STATS ROW */
+.stats-row{display:flex;justify-content:center;gap:40px;padding:30px 5%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:0;}
+.stat-item{text-align:center;}
+.stat-num{font-size:28px;font-weight:900;background:linear-gradient(90deg,var(--primary),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{color:var(--text2);font-size:12px;font-weight:600;margin-top:3px;}
+
+/* FEATURES */
+.section{padding:50px 5%;}
+.section-title{text-align:center;font-size:26px;font-weight:800;margin-bottom:8px;}
+.section-sub{text-align:center;color:var(--text2);font-size:14px;margin-bottom:36px;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1100px;margin:0 auto;}
+.feature-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:26px;transition:border-color .2s;}
+.feature-card:hover{border-color:var(--primary);}
+.feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.feature-card h3{font-size:16px;font-weight:700;margin-bottom:8px;}
+.feature-card p{color:var(--text2);font-size:13.5px;line-height:1.6;}
+
+/* REPORT SECTION */
+.report-section{max-width:680px;margin:0 auto;}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-size:13px;font-weight:700;color:var(--text2);margin-bottom:8px;letter-spacing:.3px;}
+.form-input,.form-select,.form-textarea{width:100%;background:var(--card);border:1.5px solid var(--border2);border-radius:var(--radius-sm);padding:12px 16px;color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:border-color .2s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-glow);}
+.form-textarea{resize:vertical;min-height:100px;}
+.form-select option{background:var(--bg3);}
+.btn-submit{width:100%;background:linear-gradient(135deg,var(--danger),#dc2626);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .2s;}
+.btn-submit:hover{opacity:.9;}
+.report-success{text-align:center;padding:40px;background:var(--card);border:1.5px solid var(--success);border-radius:var(--radius);display:none;}
+.report-success .success-icon{font-size:48px;color:var(--success);margin-bottom:14px;}
+.report-success h3{font-size:20px;font-weight:800;margin-bottom:8px;}
+.report-success p{color:var(--text2);font-size:14px;}
+.report-id{background:var(--success-bg);color:var(--success);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;margin-top:12px;display:inline-block;}
+
+/* ======= ADMIN LIST PAGE ======= */
+.page-header{padding:36px 5% 0;}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);margin-bottom:20px;}
+.breadcrumb a{color:var(--text2);transition:color .2s;}
+.breadcrumb a:hover{color:var(--primary);}
+.breadcrumb span{color:var(--text3);}
+.breadcrumb .current{color:#fff;font-weight:600;}
+.page-title-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px;}
+.page-title-row h1{font-size:28px;font-weight:900;}
+.admin-search-bar{position:relative;max-width:380px;}
+.admin-search-bar input{background:var(--card);border:1.5px solid var(--border2);border-radius:50px;padding:10px 16px 10px 42px;color:var(--text);font-family:inherit;font-size:14px;outline:none;width:100%;transition:border-color .2s;}
+.admin-search-bar input:focus{border-color:var(--primary);}
+.admin-search-bar i{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text3);}
+.admin-grid{padding:20px 5% 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;max-width:1300px;}
+.admin-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:26px 20px;text-align:center;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+.admin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),#6366f1);opacity:0;transition:opacity .25s;}
+.admin-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 12px 30px rgba(59,130,246,0.12);}
+.admin-card:hover::before{opacity:1;}
+.admin-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;margin:0 auto 14px;border:3px solid var(--border2);display:block;transition:border-color .25s;}
+.admin-card:hover .admin-avatar{border-color:var(--primary);}
+.admin-verified{display:inline-flex;align-items:center;gap:5px;background:var(--success-bg);color:var(--success);padding:4px 12px;border-radius:50px;font-size:11px;font-weight:700;margin-bottom:10px;}
+.admin-card h3{font-size:17px;font-weight:800;margin-bottom:6px;}
+.admin-service{color:var(--text2);font-size:12.5px;line-height:1.5;height:38px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.admin-baohiem{margin-top:14px;padding:8px 0 0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;color:var(--warning);font-weight:700;}
+.no-results{padding:60px 20px;text-align:center;color:var(--text2);font-size:15px;display:none;}
+.no-results i{font-size:40px;margin-bottom:12px;color:var(--text3);}
+
+/* ======= ADMIN DETAIL PAGE ======= */
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--border2);color:var(--text2);padding:9px 18px;border-radius:50px;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;margin-bottom:24px;}
+.back-btn:hover{border-color:var(--primary);color:var(--primary);}
+.admin-detail{max-width:820px;margin:0 auto;padding:0 5% 60px;}
+.detail-hero{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:32px;display:flex;gap:28px;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;}
+.detail-avatar-wrap{position:relative;flex-shrink:0;}
+.detail-avatar{width:110px;height:110px;border-radius:50%;object-fit:cover;border:3px solid var(--primary);}
+.detail-avatar-badge{position:absolute;bottom:4px;right:4px;width:26px;height:26px;background:var(--success);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid var(--card);}
+.detail-info{flex:1;min-width:200px;}
+.detail-name{font-size:26px;font-weight:900;margin-bottom:4px;}
+.detail-service{color:var(--text2);font-size:14px;margin-bottom:14px;}
+.detail-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.tag{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:50px;font-size:12px;font-weight:700;}
+.tag.green{background:var(--success-bg);color:var(--success);}
+.tag.blue{background:rgba(59,130,246,0.1);color:var(--primary);}
+.tag.yellow{background:var(--warning-bg);color:var(--warning);}
+.detail-actions{display:flex;gap:10px;margin-top:18px;}
+.btn-action{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-family:inherit;font-size:13.5px;font-weight:700;cursor:pointer;border:none;transition:all .2s;}
+.btn-zalo{background:linear-gradient(135deg,#0068ff,#0095ff);color:#fff;}
+.btn-fb{background:linear-gradient(135deg,#1877f2,#42a5f5);color:#fff;}
+.btn-action:hover{opacity:.85;transform:translateY(-1px);}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+.detail-block{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;}
+.detail-block-title{font-size:12px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);}
+.detail-row:last-child{border-bottom:none;}
+.detail-row-label{color:var(--text2);font-size:13px;}
+.detail-row-value{font-size:13.5px;font-weight:700;text-align:right;max-width:60%;}
+@media(max-width:640px){.detail-grid{grid-template-columns:1fr;}.detail-hero{flex-direction:column;align-items:center;text-align:center;}.detail-actions{justify-content:center;}}
+
+/* ======= MODAL ======= */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--bg3);border:1.5px solid var(--border2);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:fadeUp .3s ease;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);}
+.modal-header h3{font-size:17px;font-weight:800;}
+.modal-close{width:32px;height:32px;border-radius:8px;background:var(--card2);border:none;color:var(--text2);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.modal-close:hover{background:var(--danger-bg);color:var(--danger);}
+.modal-body{padding:24px;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--success);color:#fff;padding:12px 20px;border-radius:12px;font-size:14px;font-weight:700;z-index:99999;display:flex;align-items:center;gap:8px;animation:fadeUp .3s ease;box-shadow:0 8px 24px rgba(0,0,0,.3);}
+.toast.error{background:var(--danger);}
+
+/* RESPONSIVE NAV */
+@media(max-width:600px){
+  .nav-links .label{display:none;}
+  .nav-links a{padding:7px 10px;}
+  .stats-row{gap:20px;flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#" onclick="goPage('home')">
+    <img src="favicon.png" class="logo-img">
+    <span>CheckScam</span><em>Uy Tín</em>
+</a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="goPage('home')" id="nav-home" class="active"><i class="fa fa-house"></i> <span class="label">Trang Chủ</span></a></li>
+      <li><a href="#" onclick="goPage('admins')" id="nav-admins"><i class="fa fa-user-shield"></i> <span class="label">Trung Gian</span></a></li>
+      <li><a href="#" onclick="goPage('report')" id="nav-report"><i class="fa fa-triangle-exclamation"></i> <span class="label">Tố Cáo</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- =========== HOME PAGE =========== -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-badge"><i class="fa fa-shield-halved"></i> HỆ THỐNG XÁC MINH #1 VIỆT NAM</div>
+    <h1>Tra Cứu <span>Thông Tin</span><br>Ngăn Chặn Lừa Đảo</h1>
+    <p>Kiểm tra số điện thoại, tên, STK ngân hàng trước khi giao dịch. Bảo vệ bản thân khỏi scam.</p>
+
+    <div class="search-container">
+      <div class="search-tabs">
+        <div class="search-tab active" onclick="setSearchTab(this,'phone')"><i class="fa fa-phone"></i> Số Điện Thoại</div>
+        <div class="search-tab" onclick="setSearchTab(this,'name')"><i class="fa fa-user"></i> Tên</div>
+        <div class="search-tab" onclick="setSearchTab(this,'stk')"><i class="fa fa-landmark"></i> Số TK</div>
+      </div>
+      <div class="search-box">
+        <i class="fa fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Nhập số điện thoại để tra cứu..." onkeydown="if(event.key==='Enter')doSearch()">
+        <button class="btn-search" onclick="doSearch()"><i class="fa fa-search"></i> Tra Cứu</button>
+      </div>
+      <div id="searchResult" class="search-result"></div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">24+</div>
+      <div class="stat-label">Trung Gian Xác Minh</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-tx">58.000+</div>
+      <div class="stat-label">Giao Dịch Thành Công</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-report">0</div>
+      <div class="stat-label">Tố Cáo Đã Tiếp Nhận</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Xác Minh Thủ Công</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Tại Sao Chọn Chúng Tôi?</div>
+    <div class="section-sub">Hệ thống xác minh uy tín, minh bạch và nhanh chóng</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(59,130,246,0.1);color:var(--primary)"><i class="fa fa-magnifying-glass-chart"></i></div>
+        <h3>Tra Cứu Thần Tốc</h3>
+        <p>Kiểm tra thông tin trong vài giây. Cơ sở dữ liệu được cập nhật liên tục từ cộng đồng.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(16,185,129,0.1);color:var(--success)"><i class="fa fa-circle-check"></i></div>
+        <h3>Admin Đã Xác Minh</h3>
+        <p>Tất cả trung gian trong hệ thống đều đã đóng bảo hiểm và được kiểm duyệt kỹ lưỡng.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(239,68,68,0.1);color:var(--danger)"><i class="fa fa-triangle-exclamation"></i></div>
+        <h3>Tố Cáo Scam</h3>
+        <p>Gặp lừa đảo? Báo cáo ngay để bảo vệ cộng đồng. Mỗi báo cáo đều được xem xét thủ công.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon" style="background:rgba(245,158,11,0.1);color:var(--warning)"><i class="fa fa-shield"></i></div>
+        <h3>Bảo Hiểm Giao Dịch</h3>
+        <p>Mỗi trung gian đều có quỹ bảo hiểm riêng, đảm bảo quyền lợi khi xảy ra sự cố.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+<div class="section-title">🛡️ Danh Sách Trung Gian Nổi Bật</div>
+<div class="section-sub">Danh sách Admin đã được xác minh bởi hệ thống</div>
+<div id="homeAdminGrid" class="admin-grid"></div>
+<div style="text-align:center;margin-top:25px;"><button class="btn-search" onclick="goPage('admins')">Xem toàn bộ danh sách</button></div>
+</div>
+
+<!-- =========== ADMINS PAGE =========== -->
+<div id="page-admins" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="#" onclick="goPage('home')"><i class="fa fa-house"></i> Trang Chủ</a>
+      <span><i class="fa fa-chevron-right" style="font-size:10px"></i></span>
+      <span class="current">Danh Sách Trung Gian</span>
+    </div>
+    <div class="page-title-row">
+      <h1>🛡️ Danh Sách Trung Gian Xác Minh</h1>
+      <div class="admin-search-bar">
+        <i class="fa fa-search"></i>
+        <input type="text" id="adminSearch" placeholder="Tìm tên, dịch vụ..." oninput="filterAdmins()">
+      </div>
+    </div>
+  </div>
+  <div id="adminGrid" class="admin-grid"></div>
+  <div class="no-results" id="noResults">
+    <div><i class="fa fa-user-slash"></i></div>
+    <div>Không tìm thấy trung gian nào</div>
+  </div>
+</div>
+
+<!-- =========== ADMIN DETAIL PAGE =========== -->
+<div id="page-admin-detail" class="page">
+  <div class="admin-detail" id="adminDetailContent">
+    <!-- Injected by JS -->
+  </div>
+</div>
+
+<!-- =========== REPORT PAGE =========== -->
+<div id="page-report" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="#" onclick="goPage('home')"><i class="fa fa-house"></i> Trang Chủ</a>
+      <span><i class="fa fa-chevron-right" style="font-size:10px"></i></span>
+      <span class="current">Tố Cáo Scam</span>
+    </div>
+    <div class="page-title-row">
+      <h1>⚠️ Tố Cáo Lừa Đảo</h1>
+    </div>
+  </div>
+  <div style="padding:0 5% 60px;">
+    <div class="report-section">
+      <div id="reportForm">
+        <div style="background:var(--danger-bg);border:1.5px solid rgba(239,68,68,0.25);border-radius:var(--radius);padding:16px 20px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-start;">
+          <i class="fa fa-circle-info" style="color:var(--danger);margin-top:2px;"></i>
+          <div style="font-size:13.5px;color:var(--text2);line-height:1.6;">Mọi báo cáo đều được lưu lại và xem xét thủ công. Vui lòng cung cấp thông tin chính xác để chúng tôi xử lý hiệu quả nhất.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">LOẠI TỐ CÁO *</label>
+          <select class="form-select" id="rType">
+            <option value="">-- Chọn loại --</option>
+            <option>Lừa đảo mua bán acc game</option>
+            <option>Giả mạo trung gian</option>
+            <option>Không chuyển tiền sau giao dịch</option>
+            <option>Bom hàng / Không nhận hàng</option>
+            <option>Tố cáo khác</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">SỐ ĐIỆN THOẠI / ZALO KẺ SCAM *</label>
+          <input class="form-input" id="rPhone" placeholder="Ví dụ: 0987654321" type="tel">
+        </div>
+        <div class="form-group">
+          <label class="form-label">TÊN KẺ SCAM (nếu biết)</label>
+          <input class="form-input" id="rName" placeholder="Tên hoặc nickname">
+        </div>
+        <div class="form-group">
+          <label class="form-label">STK NGÂN HÀNG (nếu có)</label>
+          <input class="form-input" id="rBank" placeholder="Ví dụ: MB Bank - 0987654321">
+        </div>
+        <div class="form-group">
+          <label class="form-label">MÔ TẢ CHI TIẾT *</label>
+          <textarea class="form-textarea" id="rDesc" placeholder="Mô tả chi tiết sự việc, thời gian, số tiền bị lừa..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">SỐ TIỀN BỊ LỪA (nếu có)</label>
+          <input class="form-input" id="rAmount" placeholder="Ví dụ: 500.000đ">
+        </div>
+        <button class="btn-submit" onclick="submitReport()">
+          <i class="fa fa-paper-plane"></i> Gửi Tố Cáo
+        </button>
+      </div>
+
+      <div class="report-success" id="reportSuccess">
+        <div class="success-icon">✅</div>
+        <h3>Tố Cáo Đã Được Ghi Nhận!</h3>
+        <p>Cảm ơn bạn đã báo cáo. Chúng tôi sẽ xem xét và xử lý trong thời gian sớm nhất.</p>
+        <div class="report-id" id="reportId"></div>
+        <br><br>
+        <button onclick="resetReport()" style="background:var(--card);border:1.5px solid var(--border2);color:#fff;padding:10px 24px;border-radius:10px;font-family:inherit;font-weight:700;cursor:pointer;font-size:14px;">
+          <i class="fa fa-plus"></i> Gửi Tố Cáo Khác
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== DATA =========== -->
+<script>
+const admins = [
+  {id:1,name:"Nguyễn Văn Dũng",avatar:"https://i.ibb.co/Z1h8GFZK/image.png",baohiem:"10.000.000đ",phone:"039164742",zalo:"https://zalo.me/039164742",facebook:"https://www.facebook.com/nguyenvandungADMINGDTG",service:"📌GDTG 24/7 HỖ TRỢ 3s",bank:"VIB Bank",stk:"087803731",chutaikhoan:"NGUYEN VAN DUNG",giaodich:"7258",thamgia:"27/02/2024",hoanthanh:"7243",danhgia:"5.0 ⭐ (356 đánh giá)",khuvuc:"Đồng Tháp",mota:"📌GDTG 24/7 HỖ TRỢ 3s"},
+  {id:2,name:"Nguyễn Hoàng Dương",avatar:"https://i.ibb.co/B5cp3kBs/image.png",baohiem:"12.000.000đ",phone:"0934567643",zalo:"https://zalo.me/0934567643",facebook:"https://www.facebook.com/profile.php?id=100005959991439",service:"Trung gian mua bán (chuyên youtube)",bank:"VCB Bank",stk:"1031000002351",chutaikhoan:"NGUYEN HOANG DUONG",giaodich:"4358",thamgia:"24/06/2024",hoanthanh:"4243",danhgia:"5.0 ⭐ (634 đánh giá)",khuvuc:"Cà Mau",mota:"Trung gian mua bán (chuyên youtube)"},
+  {id:3,name:"Gia Bảo",avatar:"https://i.ibb.co/0d35Fb0/nh-i-n-3.jpg",baohiem:"3.000.000đ",phone:"0908967936",zalo:"https://zalo.me/0908967936",facebook:"https://www.facebook.com/profile.php?id=61590308916134",service:"Mua Bán Acc Free Fire 🎁",bank:"VCB Bank",stk:"9908967936",chutaikhoan:"NGUYEN HUU GIA BAO",giaodich:"1258",thamgia:"13/02/2025",hoanthanh:"1246",danhgia:"5.0 ⭐ (736 đánh giá)",khuvuc:"Đồng Nai",mota:"Chuyên mua bán Acc Free Fire. 📌"},
+  {id:4,name:"Nong Van Hung",avatar:"https://i.ibb.co/nNJtxHPj/image.png",baohiem:"7.000.000đ",phone:"0342685885",zalo:"https://zalo.me/0342685885",facebook:"https://www.facebook.com/profile.php?id=100004629219631",service:"Dịch vụ MXH 📲",bank:"VCB Bank",stk:"1342685885",chutaikhoan:"Nong Van Hung",giaodich:"1858",thamgia:"26/02/2025",hoanthanh:"1246",danhgia:"5.0 ⭐ (356 đánh giá)",khuvuc:"Đồng Nai",mota:"Dịch vụ MXH"},
+  {id:5,name:"Võ Xuân Lộc",avatar:"https://i.ibb.co/RkDPCmpD/image.png",baohiem:"10.000.000đ",phone:"0353882647",zalo:"https://zalo.me/0353882647",facebook:"https://www.facebook.com/loc.voxuan.1420",service:"Hỗ trợ dịch vụ mua bán acc freefire",bank:"MB Bank",stk:"9999955269999",chutaikhoan:"Võ Xuân Lộc",giaodich:"5858",thamgia:"21/02/2025",hoanthanh:"4946",danhgia:"5.0 ⭐ (356 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Dịch vụ game freefire"},
+  {id:6,name:"Phạm Văn Huy",avatar:"https://i.ibb.co/mrHKW84T/image.png",baohiem:"10.000.000đ",phone:"0824823333",zalo:"https://zalo.me/0824823333",facebook:"https://www.facebook.com/autofbvn/",service:"Dịch vụ Social Media, Facebook, Youtube...",bank:"—",stk:"—",chutaikhoan:"—",giaodich:"3458",thamgia:"21/06/2024",hoanthanh:"3346",danhgia:"5.0 ⭐ (356 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Dịch vụ MXH"},
+  {id:7,name:"Đào Xuân Mạnh",avatar:"https://i.ibb.co/Q7pV4HSQ/image.png",baohiem:"10.000.000đ",phone:"0971006047",zalo:"https://zalo.me/0971006047",facebook:"https://www.facebook.com/daoxuanmanh2003/",service:"Thu Mua Acc Free Fire Giá Cao",bank:"—",stk:"—",chutaikhoan:"—",giaodich:"3458",thamgia:"21/06/2024",hoanthanh:"3346",danhgia:"5.0 ⭐ (356 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Thu Mua Acc Free Fire Giá Cao"},
+  {id:8,name:"Phạm Phúc Thịnh",avatar:"https://i.ibb.co/sJpBJ6fW/image.png",baohiem:"14.000.000đ",phone:"0921032709",zalo:"https://zalo.me/0921032709",facebook:"https://www.facebook.com/daoxuanmanh2003/",service:"Mua bán acc game Free Fire – Liên Quân",bank:"MB BANK",stk:"181299997979",chutaikhoan:"Phạm Phúc Thịnh",giaodich:"3458",thamgia:"21/06/2024",hoanthanh:"3346",danhgia:"5.0 ⭐ (126 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Mua bán acc game Free Fire – Liên Quân"},
+  {id:9,name:"Phan Thị Kim Quyến",avatar:"https://i.ibb.co/zHPcjB86/image.png",baohiem:"8.000.000đ",phone:"0973764522",zalo:"https://zalo.me/0973764522",facebook:"https://www.facebook.com/profile.php?id=100024339137012",service:"Thu acc FF ko giam",bank:"Vietinbank",stk:"11795222",chutaikhoan:"Phan Thị Kim Quyến",giaodich:"3238",thamgia:"11/07/2024",hoanthanh:"3346",danhgia:"5.0 ⭐ (126 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Mua bán acc game Free Fire – Liên Quân"},
+  {id:10,name:"Nguyễn Thành Công",avatar:"https://i.ibb.co/DfMxwcfG/image.png",baohiem:"10.000.000đ",phone:"0334217497",zalo:"https://zalo.me/0334217497",facebook:"https://www.facebook.com/profile.php?id=100090717631937",service:"Mua Bán Acc Free Fire (FF), Liên Quân",bank:"Vietcombank",stk:"1012345678",chutaikhoan:"Nguyễn Thành Công",giaodich:"1520",thamgia:"15/08/2024",hoanthanh:"1580",danhgia:"4.9 ⭐ (95 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Chuyên giao dịch acc FF, uy tín nhanh gọn"},
+  {id:11,name:"Văn Chiến",avatar:"https://i.ibb.co/0pq6CwpX/image.png",baohiem:"10.000.000đ",phone:"0373199998",zalo:"https://zalo.me/0373199998",facebook:"https://www.facebook.com/profile.php?id=61567135317745",service:"Nhận Rút Ví Trả Sau – Thẻ tín dụng phí Rẻ",bank:"VCB Bank",stk:"9373199998",chutaikhoan:"Bui Van Chien",giaodich:"4105",thamgia:"01/05/2024",hoanthanh:"4210",danhgia:"5.0 ⭐ (210 đánh giá)",khuvuc:"Hà Nội",mota:"Hỗ trợ trung gian GD tất cả các game"},
+  {id:12,name:"Đỗ Kỳ Sơn",avatar:"https://i.ibb.co/r18fqqn/image.png",baohiem:"10.000.000đ",phone:"0928025898",zalo:"https://zalo.me/0928025898",facebook:"https://www.facebook.com/profile.php?id=100022067749987",service:"Mua bán acc free fire, liên quân",bank:"Vietinbank",stk:"103880952068",chutaikhoan:"Đỗ Kỳ Sơn",giaodich:"890",thamgia:"12/10/2024",hoanthanh:"910",danhgia:"4.8 ⭐ (64 đánh giá)",khuvuc:"Đà Nẵng",mota:"Shop acc Liên Quân Mobile sỉ và lẻ"},
+  {id:13,name:"Nguyễn Duy Long",avatar:"https://i.ibb.co/vFNjHC2/image.png",baohiem:"10.000.000đ",phone:"0359637777",zalo:"https://zalo.me/0359637777",facebook:"https://www.facebook.com/profile.php?id=100059610217465",service:"Buôn bán acc free fire, Liên quân - Nhận code",bank:"Mb Bank",stk:"56789569999",chutaikhoan:"Nguyễn Duy Long",giaodich:"2130",thamgia:"20/07/2024",hoanthanh:"2205",danhgia:"4.9 ⭐ (112 đánh giá)",khuvuc:"Cần Thơ",mota:"Giao dịch nhanh chóng trong 5 phút"},
+  {id:14,name:"Huy Phạm",avatar:"https://i.ibb.co/C360MHKL/image.png",baohiem:"7.777.777đ",phone:"0859162075",zalo:"https://zalo.me/0859162075",facebook:"—",service:"Trung gian mua bán + đổi tiền",bank:"Mbbank",stk:"0870152479999",chutaikhoan:"Phạm Văn Huy",giaodich:"1740",thamgia:"05/09/2024",hoanthanh:"1800",danhgia:"4.9 ⭐ (88 đánh giá)",khuvuc:"Hải Phòng",mota:"Thanh lý acc Liên Quân, Free Fire giá rẻ"},
+  {id:15,name:"Phát Bùi",avatar:"https://i.ibb.co/Cp40F8MN/image.png",baohiem:"10.000.000đ",phone:"0347067612",zalo:"https://zalo.me/0347067612",facebook:"https://www.facebook.com/phatbui.04/",service:"Buôn Bán Acc Game Free Fire",bank:"MB Bank",stk:"0347067612",chutaikhoan:"Bùi Đức Phát",giaodich:"3110",thamgia:"28/06/2024",hoanthanh:"3200",danhgia:"5.0 ⭐ (145 đánh giá)",khuvuc:"Bình Dương",mota:"Buôn Bán Acc Game Free Fire"},
+  {id:16,name:"Phạm Sỹ Huấn",avatar:"https://i.ibb.co/9xN6zhg/image.png",baohiem:"10.000.000đ",phone:"0922222004",zalo:"https://zalo.me/0922222004",facebook:"https://www.facebook.com/phamsyhuan2004/",service:"Mở Khóa, Rip, Bảo Mật Facebook",bank:"MB BANK",stk:"88888883658888",chutaikhoan:"Phạm Sỹ Huấn",giaodich:"1250",thamgia:"11/11/2024",hoanthanh:"1290",danhgia:"4.8 ⭐ (72 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Thiết Kế Website, Landingpage"},
+  {id:17,name:"Nguyễn Đăng Nam",avatar:"https://i.ibb.co/ych1wVgV/image.png",baohiem:"10.000.000đ",phone:"0903440637",zalo:"https://zalo.me/0903440637",facebook:"https://www.facebook.com/profile.php?id=100061639721030",service:"Mua bán acc free fire, liên quân, fifa online4.",bank:"Mb Bank",stk:"0903440637",chutaikhoan:"Nguyễn Đăng Nam",giaodich:"2890",thamgia:"04/08/2024",hoanthanh:"2980",danhgia:"5.0 ⭐ (119 đánh giá)",khuvuc:"Đồng Nai",mota:"Mua bán acc free fire, liên quân, fifa online4."},
+  {id:18,name:"Long Mai",avatar:"https://i.ibb.co/cSNThFBb/image.png",baohiem:"10.000.000đ",phone:"0335867282",zalo:"https://zalo.me/0335867282",facebook:"https://www.facebook.com/profile.php?id=100090901234567",service:"Mua Bán Acc Ngọc Rồng",bank:"TP bank",stk:"0335867282",chutaikhoan:"Mai Thành Long",giaodich:"950",thamgia:"18/09/2024",hoanthanh:"980",danhgia:"4.7 ⭐ (55 đánh giá)",khuvuc:"An Giang",mota:"Hỗ trợ nhiệt tình, tư vấn acc phù hợp"},
+  {id:19,name:"Trần Gia Bảo",avatar:"https://i.ibb.co/RTVGnDYg/image.png",baohiem:"7.000.000đ",phone:"0949106927",zalo:"https://zalo.me/0949106927",facebook:"https://www.facebook.com/boztran/",service:"Hệ Thống Cung Cấp Source Code, Firewall Anti Ddos...",bank:"Vietcombank",stk:"1050359320",chutaikhoan:"Trần Gia Bảo",giaodich:"3410",thamgia:"01/07/2024",hoanthanh:"3520",danhgia:"5.0 ⭐ (138 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Nhận GDTG, Đổi Tiền"},
+  {id:20,name:"Nguyễn Ngọc Minh",avatar:"https://i.ibb.co/Nnd3LL6Z/image.png",baohiem:"2.000.000đ",phone:"0792318888",zalo:"https://zalo.me/0792318888",facebook:"https://www.facebook.com/profile.php?id=61590918838328",service:"Gạch card - Buff follow fb - Đổi tiền – trung gian mua bán",bank:"Momo",stk:"0792318888",chutaikhoan:"Nguyễn Ngọc Minh",giaodich:"1420",thamgia:"10/01/2025",hoanthanh:"1450",danhgia:"4.9 ⭐ (78 đánh giá)",khuvuc:"Thành Phố HCM",mota:"Đổi tiền – trung gian mua bán"},
+  {id:21,name:"Lương Thảo",avatar:"https://i.ibb.co/xSHrrz54/image.png",baohiem:"1.000.000đ",phone:"0394157646",zalo:"https://zalo.me/0394157646",facebook:"https://www.facebook.com/profile.php?id=100015593414714",service:"Hỗ trợ game free fire + liên quân",bank:"Viettinbank",stk:"109871034731",chutaikhoan:"Lương Thảo",giaodich:"920",thamgia:"15/03/2025",hoanthanh:"940",danhgia:"4.8 ⭐ (62 đánh giá)",khuvuc:"Hà Nội",mota:"Shop acc giá học sinh sinh viên, bao check"},
+  {id:22,name:"Trần Qui Khôi",avatar:"https://i.ibb.co/Swr69xNY/image.png",baohiem:"10.000.000đ",phone:"0337492940",zalo:"https://zalo.me/0337492940",facebook:"https://www.facebook.com/profile.php?id=100000935777703",service:"Gdtg rep siêu nhanh phí hợp lí",bank:"—",stk:"—",chutaikhoan:"—",giaodich:"5120",thamgia:"22/11/2024",hoanthanh:"5120",danhgia:"5.0 ⭐ (310 đánh giá)",khuvuc:"Đà Nẵng",mota:"Nhận trung gian tất cả giao dịch game an toàn"},
+  {id:23,name:"Thịnh Cao",avatar:"https://i.ibb.co/SCCxjdw/image.png",baohiem:"1.000.000đ",phone:"0886665924",zalo:"https://zalo.me/0886665924",facebook:"—",service:"Thu acc FF ko giam",bank:"MBBank",stk:"0886665924",chutaikhoan:"Cao Đức Thịnh",giaodich:"2310",thamgia:"05/08/2024",hoanthanh:"2380",danhgia:"4.9 ⭐ (105 đánh giá)",khuvuc:"Bình Dương",mota:"Gdtg đổi tiền, dịch vụ mạng xã hội"},
+  {id:24,name:"Phạm Xuân Thức",avatar:"https://i.ibb.co/3YGxCVSM/image.png",baohiem:"3.000.000đ",phone:"0938543156",zalo:"https://zalo.me/0938543156",facebook:"https://www.facebook.com/profile.php?id=100057381493317",service:"LÊN TÍCH XANH FACEBOOK, IG, TIKTOK",bank:"BIDV",stk:"6711434083",chutaikhoan:"Phạm Xuân Thức",giaodich:"1150",thamgia:"18/02/2025",hoanthanh:"1190",danhgia:"5.0 ⭐ (84 đánh giá)",khuvuc:"Cần Thơ",mota:"LÊN TÍCH XANH FACEBOOK, IG, TIKTOK"}
+];
+
+// ---- STORAGE ----
+const STORAGE_KEY = 'checkscam_reports';
+
+function getReports() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  } catch(e) { return []; }
+}
+
+function saveReport(r) {
+  const reports = getReports();
+  reports.unshift(r);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(reports));
+}
+
+// Update report stat
+function updateStats() {
+  const count = getReports().length;
+  const el = document.getElementById('stat-report');
+  if (el) el.textContent = count;
+}
+
+// ---- NAVIGATION ----
+let currentPage = 'home';
+let previousPage = 'home';
+
+function goPage(page, fromDetail) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + (page === 'admin-detail' ? 'admins' : page));
+  if (navEl) navEl.classList.add('active');
+  previousPage = currentPage;
+  currentPage = page;
+  window.scrollTo(0, 0);
+  if (page === 'admins') renderAdminGrid(admins);
+  updateStats();
+}
+
+// ---- SEARCH TAB ----
+let searchType = 'phone';
+function setSearchTab(el, type) {
+  document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  searchType = type;
+  const input = document.getElementById('searchInput');
+  const placeholders = {phone:'Nhập số điện thoại để tra cứu...', name:'Nhập tên người dùng...', stk:'Nhập số tài khoản ngân hàng...'};
+  input.placeholder = placeholders[type];
+  input.value = '';
+  document.getElementById('searchResult').innerHTML = '';
+}
+
+// ---- HOME SEARCH ----
+function doSearch() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase().replace(/\s/g,'');
+  const box = document.getElementById('searchResult');
+  if (!q) { box.innerHTML = ''; return; }
+
+  // Check reports (scam list)
+  const reports = getReports();
+  const scamMatch = reports.find(r => {
+    const ph = (r.phone||'').replace(/\s/g,'').toLowerCase();
+    const nm = (r.name||'').toLowerCase();
+    const bk = (r.bank||'').replace(/\s/g,'').toLowerCase();
+    if (searchType === 'phone') return ph.includes(q);
+    if (searchType === 'name') return nm.includes(q);
+    if (searchType === 'stk') return bk.includes(q);
+    return false;
+  });
+
+  // Check admins
+  let adminMatch = null;
+  admins.forEach(a => {
+    const ph = (a.phone||'').replace(/\s/g,'').toLowerCase();
+    const nm = a.name.toLowerCase();
+    const stk = (a.stk||'').replace(/\s/g,'').toLowerCase();
+    if (searchType === 'phone' && ph === q) adminMatch = a;
+    else if (searchType === 'name' && nm.includes(q)) adminMatch = a;
+    else if (searchType === 'stk' && stk === q) adminMatch = a;
+  });
+
+  if (scamMatch) {
+    box.innerHTML = `
+      <div class="result-card warning">
+        <div class="result-header">
+          <div class="result-icon yellow"><i class="fa fa-triangle-exclamation"></i></div>
+          <div>
+            <div class="result-title">⚠️ Đã Có Tố Cáo Về Thông Tin Này</div>
+            <div class="result-sub">Thông tin này đã được báo cáo là lừa đảo. Hãy cẩn thận!</div>
+          </div>
+        </div>
+        <div style="background:var(--warning-bg);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:14px;font-size:13.5px;line-height:1.7;color:var(--text2);">
+          <b style="color:var(--warning)">Loại tố cáo:</b> ${scamMatch.type||'—'}<br>
+          <b style="color:var(--warning)">Ngày báo cáo:</b> ${scamMatch.date||'—'}<br>
+          ${scamMatch.amount ? `<b style="color:var(--warning)">Số tiền bị lừa:</b> ${scamMatch.amount}<br>` : ''}
+          <b style="color:var(--warning)">Mô tả:</b> ${(scamMatch.desc||'').substring(0,120)}${scamMatch.desc && scamMatch.desc.length > 120 ? '...' : ''}
+        </div>
+      </div>`;
+  } else if (adminMatch) {
+    box.innerHTML = `
+      <div class="result-card verified">
+        <div class="result-header">
+          <div class="result-icon green"><i class="fa fa-circle-check"></i></div>
+          <div>
+            <div class="result-title">✅ Admin Đã Xác Minh</div>
+            <div class="result-sub">Thông tin này thuộc về trung gian uy tín trong hệ thống</div>
+          </div>
+        </div>
+        <div class="result-admin-info">
+          <img src="${adminMatch.avatar}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(adminMatch.name)}&background=1a2234&color=3b82f6'">
+          <div>
+            <div class="info-name">${adminMatch.name}</div>
+            <div class="info-service">${adminMatch.service}</div>
+            <div class="info-badge"><i class="fa fa-shield-halved"></i> Đã xác minh – Quỹ BH: ${adminMatch.baohiem}</div>
+          </div>
+        </div>
+        <button class="result-detail-btn" onclick="goAdminDetail(${adminMatch.id})">
+          <i class="fa fa-arrow-right"></i> Xem Chi Tiết Admin
+        </button>
+      </div>`;
+  } else {
+    box.innerHTML = `
+      <div class="result-card not-found">
+        <div class="result-header">
+          <div class="result-icon red"><i class="fa fa-circle-xmark"></i></div>
+          <div>
+            <div class="result-title">Không Tìm Thấy Dữ Liệu</div>
+            <div class="result-sub">Chưa có thông tin về ${searchType === 'phone' ? 'số điện thoại' : searchType === 'name' ? 'tên' : 'số tài khoản'} <b style="color:#fff">"${document.getElementById('searchInput').value.trim()}"</b> trong hệ thống</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border-radius:10px;padding:14px;font-size:13.5px;color:var(--text2);line-height:1.7;">
+          <i class="fa fa-info-circle" style="color:var(--primary)"></i> Thông tin chưa được đăng ký hoặc chưa có báo cáo. Nếu bạn nghi ngờ đây là scam, hãy <a href="#" onclick="goPage('report')" style="color:var(--primary);font-weight:700">tố cáo ngay</a>.
+        </div>
+      </div>`;
+  }
+}
+
+// ---- ADMIN GRID ----
+function renderAdminGrid(data) {
+  const grid = document.getElementById('adminGrid');
+  const noRes = document.getElementById('noResults');
+  if (!data.length) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+  grid.innerHTML = data.map(a => `
+    <div class="admin-card" onclick="goAdminDetail(${a.id})">
+      <img class="admin-avatar" src="${a.avatar}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&background=1a2234&color=3b82f6'" alt="${a.name}">
+      <div class="admin-verified"><i class="fa fa-circle-check"></i> Đã Xác Minh</div>
+      <h3>${a.name}</h3>
+      <div class="admin-service">${a.service}</div>
+      <div class="admin-baohiem"><i class="fa fa-shield"></i> Quỹ BH: ${a.baohiem}</div>
+    </div>`).join('');
+}
+
+function filterAdmins() {
+  const q = document.getElementById('adminSearch').value.toLowerCase();
+  const filtered = admins.filter(a =>
+    a.name.toLowerCase().includes(q) ||
+    a.service.toLowerCase().includes(q) ||
+    a.khuvuc.toLowerCase().includes(q)
+  );
+  renderAdminGrid(filtered);
+}
+
+// ---- ADMIN DETAIL ----
+function goAdminDetail(id) {
+  const a = admins.find(x => x.id === id);
+  if (!a) return;
+  const fbLink = a.facebook && a.facebook.startsWith('http') ? `<a href="${a.facebook}" target="_blank" class="btn-action btn-fb"><i class="fa-brands fa-facebook"></i> Facebook</a>` : '';
+  document.getElementById('adminDetailContent').innerHTML = `
+    <div style="padding-top:32px;">
+      <button class="back-btn" onclick="goPage('admins')">
+        <i class="fa fa-arrow-left"></i> Quay Lại Danh Sách
+      </button>
+      <div class="breadcrumb" style="margin-bottom:20px;">
+        <a href="#" onclick="goPage('home')"><i class="fa fa-house"></i> Trang Chủ</a>
+        <span><i class="fa fa-chevron-right" style="font-size:10px"></i></span>
+        <a href="#" onclick="goPage('admins')">Danh Sách Trung Gian</a>
+        <span><i class="fa fa-chevron-right" style="font-size:10px"></i></span>
+        <span class="current">${a.name}</span>
+      </div>
+
+      <div class="detail-hero">
+        <div class="detail-avatar-wrap">
+          <img class="detail-avatar" src="${a.avatar}" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(a.name)}&background=1a2234&color=3b82f6'" alt="${a.name}">
+          <div class="detail-avatar-badge">✅</div>
+        </div>
+        <div class="detail-info">
+          <div class="detail-name">${a.name}</div>
+          <div class="detail-service">${a.service}</div>
+          <div class="detail-tags">
+            <span class="tag green"><i class="fa fa-circle-check"></i> Đã Xác Minh</span>
+            <span class="tag blue"><i class="fa fa-location-dot"></i> ${a.khuvuc}</span>
+            <span class="tag yellow"><i class="fa fa-shield"></i> BH: ${a.baohiem}</span>
+          </div>
+          <div class="detail-actions">
+            <a href="${a.zalo}" target="_blank" class="btn-action btn-zalo"><i class="fa-brands fa-facebook-messenger"></i> Zalo</a>
+            ${fbLink}
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-block">
+          <div class="detail-block-title"><i class="fa fa-chart-bar"></i> Thống Kê Hoạt Động</div>
+          <div class="detail-row"><span class="detail-row-label">Tổng giao dịch</span><span class="detail-row-value" style="color:var(--primary)">${a.giaodich}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Hoàn thành</span><span class="detail-row-value" style="color:var(--success)">${a.hoanthanh}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Đánh giá</span><span class="detail-row-value">${a.danhgia}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Tham gia từ</span><span class="detail-row-value">${a.thamgia}</span></div>
+        </div>
+        <div class="detail-block">
+          <div class="detail-block-title"><i class="fa fa-landmark"></i> Thông Tin Ngân Hàng</div>
+          <div class="detail-row"><span class="detail-row-label">Ngân hàng</span><span class="detail-row-value">${a.bank}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Số tài khoản</span><span class="detail-row-value" style="font-family:monospace;font-size:13px">${a.stk}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Chủ tài khoản</span><span class="detail-row-value">${a.chutaikhoan}</span></div>
+          <div class="detail-row"><span class="detail-row-label">Quỹ bảo hiểm</span><span class="detail-row-value" style="color:var(--warning)">${a.baohiem}</span></div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <div class="detail-block-title"><i class="fa fa-circle-info"></i> Giới Thiệu</div>
+        <p style="color:var(--text2);font-size:14px;line-height:1.8;padding:4px 0">${a.mota}</p>
+      </div>
+    </div>`;
+  goPage('admin-detail');
+}
+
+// ---- REPORT ----
+function submitReport() {
+  const type = document.getElementById('rType').value;
+  const phone = document.getElementById('rPhone').value.trim();
+  const name = document.getElementById('rName').value.trim();
+  const bank = document.getElementById('rBank').value.trim();
+  const desc = document.getElementById('rDesc').value.trim();
+  const amount = document.getElementById('rAmount').value.trim();
+
+  if (!type) { showToast('Vui lòng chọn loại tố cáo', true); return; }
+  if (!phone) { showToast('Vui lòng nhập SĐT kẻ scam', true); return; }
+  if (!desc) { showToast('Vui lòng mô tả chi tiết', true); return; }
+
+  const id = 'RPT-' + Date.now().toString(36).toUpperCase();
+  const now = new Date();
+  const dateStr = `${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+
+  saveReport({ id, type, phone, name, bank, desc, amount, date: dateStr });
+
+  document.getElementById('reportForm').style.display = 'none';
+  const success = document.getElementById('reportSuccess');
+  success.style.display = 'block';
+  document.getElementById('reportId').textContent = '📋 Mã tố cáo: ' + id;
+  updateStats();
+  showToast('Tố cáo đã được ghi nhận thành công!');
+}
+
+function resetReport() {
+  document.getElementById('reportForm').style.display = 'block';
+  document.getElementById('reportSuccess').style.display = 'none';
+  ['rType','rPhone','rName','rBank','rDesc','rAmount'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el.tagName === 'SELECT') el.selectedIndex = 0; else el.value = '';
+  });
+}
+
+// ---- TOAST ----
+function showToast(msg, isError) {
+  const t = document.createElement('div');
+  t.className = 'toast' + (isError ? ' error' : '');
+  t.innerHTML = `<i class="fa ${isError ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> ${msg}`;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3200);
+}
+
+// ---- INIT ----
+updateStats();
+renderAdminGrid(admins);
+const hg=document.getElementById("homeAdminGrid"); if(hg){hg.innerHTML=document.getElementById("adminGrid").innerHTML;}
+</script>
+</body>
+</html>
